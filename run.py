@@ -29,6 +29,12 @@ def archive_turn_conversation(urn, message_id, reason):
         headers=headers,
         data=data,
     )
+    if r.status_code == requests.codes.not_found:
+        print(
+            f"Could not archive turn conversation for urn: {urn}, "
+            "message_id: {message_id}, reason: {reason}"
+        )
+        return
     r.raise_for_status()
 
 
